@@ -1,4 +1,5 @@
-var transform = {'tag':'figure', 'html': '<img src="${URL}"> <figcaption> ${Name} </figcaption>'}
+var $container = $('#people-box');
+var transform = {'tag':'figure', 'class' : 'people', 'html': '<img src="${URL}"> <figcaption> ${Name} </figcaption>'}
 
 var people = [{
     "Name": "Chris Hua",
@@ -15,4 +16,11 @@ var people = [{
     "URL": "http://placehold.it/250x250"
 }]
 
-document.getElementById('people-box').innerHTML = json2html.transform(people, transform);
+$container.append(json2html.transform(people, transform));
+
+$container.isotope({
+    itemSelector: '.people',
+    masonry: {
+        columnWidth: 250
+    }
+});
