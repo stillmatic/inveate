@@ -1,40 +1,40 @@
-var $container = $('#people-box');
+
 var transform = {
     'tag': 'figure',
-    'class': 'people',
-    'html': '<img src="${URL}"> <figcaption> <strong>${Name}</strong> <br /> <strong>Category:</strong> ${Category} <br /> <strong>Email:</strong> ${Email} <br /> <strong>Bio:</strong> ${Bio} </figcaption>'
+    'class': 'people ${Category}',
+    'html': '<img src="${URL}"> <figcaption> <span class="p-name"><strong>${Name}</strong></span> <br /> <strong>Category:</strong> <span class="p-cat">${Category}</span> <br /> <strong>Email:</strong> ${Email} <br /> <strong>Bio:</strong> ${Bio} </figcaption>'
 }
 
 //TODO: ajax this
 var people = [{
     "Name": "Chris Hua",
-    "Category": "Web Development",
+    "Category": "Web",
     "Email": "chua@wharton.upenn.edu",
     "Bio": "I hate Chris",
     "Twitter": "@chris_hua",
     "URL": "http://placehold.it/250x250"
 }, {
     "Name": "Thom Eng",
-    "Category": "Mechanical Design",
+    "Category": "Mechanical",
     "Email": "",
     "Bio": "Thom & YUUUU",
     "URL": "http://placehold.it/250x250"
 }, {
     "Name": "Sam Summer",
-    "Category": "Web Development",
+    "Category": "Web",
     "Email": "chua@wharton.upenn.edu",
     "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
     "Twitter": "@chris_hua",
     "URL": "http://placehold.it/250x250"
 }, {
     "Name": "Anvita Anchar",
-    "Category": "Mechanical Design",
+    "Category": "Mechanical",
     "Email": "",
     "Bio": "lorem",
     "URL": "http://placehold.it/250x250"
 }, {
     "Name": "Anvita Anchar",
-    "Category": "Mechanical Design",
+    "Category": "Mechanical",
     "Email": "",
     "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio vitae, error cum quasi odit a est, ullam facilis debitis in animi porro ad molestias non dolorum quod eos. Veritatis, dignissimos.",
     "URL": "http://placehold.it/250x250"
@@ -42,19 +42,26 @@ var people = [{
 
 document.getElementById('people-box').innerHTML = json2html.transform(people, transform);
 
-// make this declarative instead of functional
-// necessary because j2h doesn't change height of div
-function resize() {
-    this._originalHeight = this._originalHeight || $(this).height();
-    var bodyWidth = $("body").width();
-    var widthDiff = bodyWidth - originalWidth;
-    var newHeight = this._originalHeight + (widthDiff / 10);
-    $(this).css("height", newHeight);
-}
+var $container = $('#people-box').imagesLoaded(function() {
+    $container.isotope({
+        itemSelector: '.people',
+        layoutMode: 'masonry',
+    });
+    // bind filter button click
+    $('#people-filters').on('click', 'button', function() {
+        var filterValue = $(this).attr('data-filter');
+        $container.isotope({
+            filter: filterValue
+        });
+    });
 
-$.resize();
+    // change is-checked class on buttons
+    $('.btn-grp').each(function(i, buttonGroup) {
+        var $buttonGroup = $(buttonGroup);
+        $buttonGroup.on('click', 'button', function() {
+            $buttonGroup.find('.btn-primary').removeClass('btn-primary');
+            $(this).addClass('btn-primary');
+        });
+    });
 
-$container.isotope({
-    itemSelector: '.people',
-    layoutMode: 'masonryHorizontal'
 });
