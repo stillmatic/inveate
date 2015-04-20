@@ -29,6 +29,31 @@ Orange EBA76A
 .fixed {
     position: fixed;
 }
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#main {
+    padding-bottom: 80px;
+    /* Height of the footer element */
+}
+
+.footer {
+	width: 100%;
+    height: 80px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
+}
 /* sidebar */
 /* TODO: remove border-top-left/right-radius / border-bottom-left/right-radius*/
 
