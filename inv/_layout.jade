@@ -8,21 +8,22 @@ html(lang="en")
     script(src="js/jquery-2.1.3.min.js")
     script(src="js/isotope.pkgd.min.js")
   body
-    .container
-      h1 Inveate 
-        small design & fabrication consulting
-      .container-fluid
-        .row
-          #nav.col-md-3
-            .list-group.sidebar
-              a.list-group-item(href="index.html") Home
-              a.list-group-item(href="about.html") About
-              a.list-group-item(href="team.html") Team
-              a.list-group-item(href="portfolio.html") Portfolio
-              a.list-group-item(href="contact.html") Contact
-          #content.col-md-9
-            !=yield
-    .footer
-      .container
-        &copy; 2014-15 Inveate
+    #wrapper
+      #main.container
+        h1 Inveate 
+          small design & fabrication consulting
+        .container-fluid
+          .row
+            #nav.col-md-3
+              .list-group.sidebar
+                a.list-group-item(class="#{ current.source == 'index' ? 'active' : '' }", href="index.html") Home 
+                a.list-group-item(class="#{ current.source == 'about' ? 'active' : '' }", href="about.html") About
+                a.list-group-item(class="#{ current.source == 'team' ? 'active' : '' }", href="team.html") Team
+                a.list-group-item(class="#{ current.source == 'portfolio' ? 'active' : '' }", href="portfolio.html") Portfolio
+                a.list-group-item(class="#{ current.source == 'contact' ? 'active' : '' }", href="contact.html") Contact
+            #content.col-md-9
+              !=yield
+      .footer
+        .container
+          &copy; 2014-15 Inveate
     
